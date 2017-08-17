@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>纸牌游戏</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  </head>
+  <style>
+  .box {
+    width: 355px;
+    height: 400px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin:  200px auto;
+    position: relative;
+  }
+  .box img {
+    width: 50%
+  }
+  .back {
+    position: absolute;
+    top: 0;
+    z-index: 99;
+    left: -70%;
+  }
+  .back2{
+    position: absolute;
+    top: 0;
+    left: 100%;
+    z-index: 99;
+  }
+  .back3{
+    position: absolute;
+    top: 0;
+    left: 15%;
+    z-index: 99;
+  }
+  .back4{
+    position: absolute;
+    top: 65%;
+    left: 15%;
+    z-index: 99;
+  }
+  .back5{
+    position: absolute;
+    top: 65%;
+    left: 100%;
+    z-index: 99;
+  }
+  .back6{
+    position: absolute;
+    top: 65%;
+    left: -70%;
+    z-index: 99;
+  }
+  .k2 {
+    position: absolute;
+    left: 100%;
+    top: 0;
+  }
+  .k3 {
+    position: absolute;
+    left: 15%;
+    top: 0;
+  }
+  .k4 {
+    position: absolute;
+    left: 15%;
+    top: 65%;
+  }
+  .k5 {
+    position: absolute;
+    left: 100%;
+    top: 65%;
+  }
+  .k6 {
+    position: absolute;
+    left: -70%;
+    top: 65%;
+  }
+  .k {
+    position: absolute;
+    top: 0;
+    left: -70%;
+  }
+  .in {
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-duration: 350ms;
+    animation-timing-function: ease-out;
+    animation-duration: 350ms;
+  }
+  .out {
+    -webkit-animation-timing-function: ease-in;
+    -webkit-animation-duration: 225ms;
+    animation-timing-function: ease-in;
+    animation-duration: 225ms;
+  }
+  .flip {
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
+  backface-visibility: hidden;
+  transform: translateX(0);
+}
+.flip.out {
+  -webkit-transform: rotateY(-90deg) scale(.9);
+  -webkit-animation-name: flipouttoleft;
+  -webkit-animation-duration: 175ms;
+  transform: rotateY(-90deg) scale(.9);
+  animation-name: flipouttoleft;
+  animation-duration: 175ms;
+}
+.flip.in {
+  -webkit-animation-name: flipintoright;
+  -webkit-animation-duration: 225ms;
+  animation-name: flipintoright;
+  animation-duration: 225ms;
+}
+@-webkit-keyframes flipintoright {
+    from { -webkit-transform: rotateY(90deg) scale(.9); }
+    to { -webkit-transform: rotateY(0); }
+}
+@keyframes flipintoright {
+    from { transform: rotateY(90deg) scale(.9); }
+    to { transform: rotateY(0); }
+}
+@-webkit-keyframes flipouttoleft {
+    from { -webkit-transform: rotateY(0); }
+    to { -webkit-transform: rotateY(-90deg) scale(.9); }
+}
+@keyframes flipouttoleft {
+    from { transform: rotateY(0); }
+    to { transform: rotateY(-90deg) scale(.9); }
+}
+button {
+  width: 100px;
+  text-align: center;
+  position: relative;
+  left: 41%;
+}
+  </style>
+  <body>
+    <div id="box" class="box">
+      <div class="div1">
+        <img src="puke-back.png" alt="纸牌反面" class="back flip out">
+        <img src="puke-k.png" alt="纸牌正面" class="k flip">
+      </div>
+      <div class="div2">
+        <img src="puke-back.png" alt="纸牌反面" class="flip out back2">
+        <img src="puke-k.png" alt="纸牌正面" class="k2 flip">
+    </div>
+    <div class="div3">
+        <img src="puke-back.png" alt="纸牌反面" class="flip out back3">
+        <img src="puke-k.png" alt="纸牌正面" class="k3 flip">
+    </div>
+    <div class="div4">
+        <img src="puke-back.png" alt="纸牌反面" class="flip out back4">
+        <img src="puke-k.png" alt="纸牌正面" class="k4 flip">
+    </div>
+    <div class="div5">
+        <img src="puke-back.png" alt="纸牌反面" class="flip out back5">
+        <img src="puke-k.png" alt="纸牌正面" class="k5 flip">
+    </div>
+    <div class="div6">
+        <img src="puke-back.png" alt="纸牌反面" class="flip out back6">
+        <img src="puke-k.png" alt="纸牌正面" class="k6 flip">
+    </div>
+    </div>
+    <button onclick="action()" class="reset">开始抽奖</button>
+  </body>
+  <script>
+    // $("#box img").bind('click', function () {
+    //   if($(this).hasClass('in')) {
+    //     $(this).removeClass('in').addClass('out').siblings().removeClass('out').addClass('in');
+    //   }
+    // })
+    $("#box img").bind('click', function () {
+      if($(this).hasClass('in')) {
+        $(this).parent().siblings().children().off("click");
+        $(this).removeClass('in').addClass('out');
+        $(".reset").attr("disabled","disabled");
+      }
+    })
+    function action () {
+        $("#box img.out").removeClass("out").addClass("in");
+    }
+
+    $.ajax({
+      type:'get',
+      url:'api.json',
+      dataType:'json',
+      success: getInfomation,
+      error: function () {
+        alert("错误")
+      }
+    })
+    function getInfomation (rev) {
+      console.log(JSON.stringify(rev))
+    }
+  </script>
+</html>
