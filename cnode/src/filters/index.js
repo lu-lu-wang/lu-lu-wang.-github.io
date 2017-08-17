@@ -7,3 +7,12 @@ export function getTitleStr (tab) {
     'all': '全部'
   }[tab]
 }
+export function getTitleStyle (tab) {
+  return {
+    'share': 'share-bg',
+    'job': 'job-bg',
+    'ask': 'ask-bg',
+    'good': 'good-bg',
+    'all': ''
+  }[tab]
+}

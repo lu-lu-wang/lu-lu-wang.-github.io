@@ -12,6 +12,8 @@ import 'mint-ui/lib/style.css'
 import './assets/style/icon.less'
 import './assets/style/flex-app.less'
 import './assets/style/page.less'
+import './assets/style/github-markdown.css'
+import './assets/style/topic.scss'
 import * as filters from './filters'
 Vue.use(VueScroller)
 Vue.config.productionTip = false
@@ -23,7 +25,7 @@ mint.forEach((v) => {
 })
 // 实例化vue的filters
 Object.keys(filters).forEach(function (k) {
-  Vue.filters(k, filters[k])
+  Vue.filter(k, filters[k])
 })
 
 /* eslint-disable no-new */

@@ -12,7 +12,7 @@
         <router-link :to="{name:'topic',params:{id:item.id}}">
           <div class="title" flex="dir:top">
             <div flex-box="0" class="fui-text-left fui-margin-bottom-10 nowarp">
-              <i class="action-top">{{item.tab|getTitleStr}}</i>
+              <i :class="item.tab|getTitleStyle" v-if=item.tab>{{item.tab|getTitleStr}}</i>
               {{item.title}}
             </div>
             <div flex-box="1" class="summary">
@@ -38,6 +38,7 @@
 </div>
 </template>
 <script>
+  // import '../assets/style/github-markdown.css'
   import $ from 'webpack-zepto'
   export default {
     data () {
@@ -99,13 +100,25 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
-      }
-      .action-top {
-        background: #e74c3c;
-        color: #fff;
-        padding: 5px;
-        font-size: .5rem;
-        border-radius: 5px;
+        i {
+            background: #e74c3c;
+            color: #fff;
+            padding: 5px;
+            font-size: .5rem;
+            border-radius: 5px;
+        }
+        .share-bg {
+            background: #1abc9c;
+        }
+        .ask-bg {
+            background: #3498db;
+        }
+        .good-bg {
+            background: #e67e22;
+        }
+        .jb-bg {
+            background: #9b59b6;
+        }
       }
       .summary {
         span {
